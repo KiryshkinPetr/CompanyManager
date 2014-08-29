@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+        >
+<h:head>
+    <h:outputStylesheet library="css" name="table-style.css"  />
+</h:head>
+
+<h:body>
+
+    <h1>Company manager</h1>
+
+    <h:form>
+        <h:commandButton action="#{employee.initRandomList()}" value="Init Random Employee List">
+            <f:ajax execute="@form" render=":table" />
+        </h:commandButton>
+    </h:form>
+
+    <h2>Add New Employee</h2>
+    <h:form id="createEmployee">
+
+        <h:panelGrid columns="3">
+
+            First Name :
+            <h:inputText id="firstName" value="#{employee.firstName}"
+                         size="20" required="true"
+                         label="Name" >
+            </h:inputText>
+
+            <h:message for="firstName" style="color:red" />
+
+            Last Name :
+            <h:inputText id="lastName" value="#{employee.lastName}"
+                         size="20" required="true"
+                         label="lastName" >
+            </h:inputText>
+
+            <h:message for="lastName" style="color:red" />
+
+            Age :
+            <h:inputText id="age" value="#{employee.age}"
+                         size="20" required="true"
+                         label="age" >
+                <f:validateLongRange minimum="18"  maximum="65"/>
+            </h:inputText>
+
+            <h:message for="age" style="color:red" />
+
+            Salary :
+            <h:inputText id="salary" value="#{employee.salary}"
+                         size="20" required="true"
+                         label="salary" >
+                <f:validateLongRange minimum="250" />
+            </h:inputText>
+
+            <h:message for="salary" style="color:red" />
+
+        </h:panelGrid>
+
+        <h:commandButton value="Submit" action="#{employee.addEmployee()}">
+            <f:ajax execute="@form" render="@form :table" />
+        </h:commandButton>
+
+    </h:form>
+    <h:form>
+        <span>Show </span>
+        <h:inputText id="num" size="1" value="#{employee.numEmpl}">
+            <f:validateLongRange minimum="0" />
+        </h:inputText>
+        <span> employees</span>
+        <h:commandButton value="Show employees" actionListener="@form" ></h:commandButton>
+        <h:message for="num" style="color:red" />
+    </h:form>
+    <h:form id="table">
+        <h:dataTable  value="#{employee.getEmployeeList()}" var="c"
+                     styleClass="order-table"
+                     headerClass="order-table-header"
+                     rowClasses="order-table-odd-row,order-table-even-row"
+                >
+
+            <h:column>
+                <f:facet name="header">
+                    <h:commandLink value="First name" actionListener="#{employee.sort(0)}">
+                        <f:ajax execute="@form" render="@form :table" />
+                    </h:commandLink>
+                </f:facet>
+                <h:inputText value="#{c.firstName}" size="10" rendered="#{c.editable}" />
+
+                <h:outputText value="#{c.firstName}" rendered="#{not c.editable}" />
+
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:commandLink value="Last name" actionListener="#{employee.sort(1)}">
+                        <f:ajax execute="@form" render="@form :table" />
+                    </h:commandLink>
+                </f:facet>
+                <h:inputText value="#{c.lastName}" size="10" rendered="#{c.editable}" />
+
+                <h:outputText value="#{c.lastName}" rendered="#{not c.editable}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:commandLink value="Age" actionListener="#{employee.sort(2)}">
+                        <f:ajax execute="@form" render="@form :table" />
+                    </h:commandLink>
+                </f:facet>
+                <h:inputText value="#{c.age}" size="10" rendered="#{c.editable}" />
+
+                <h:outputText value="#{c.age}" rendered="#{not c.editable}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:commandLink value="Salary" actionListener="#{employee.sort(3)}">
+                        <f:ajax execute="@form" render="@form :table" />
+                    </h:commandLink>
+                </f:facet>
+                <h:inputText value="#{c.salary}" size="10" rendered="#{c.editable}" />
+
+                <h:outputText value="#{c.salary}" rendered="#{not c.editable}" />
+            </h:column>
+
+            <h:column >
+
+                <f:facet name="header">Edit</f:facet>
+
+                <h:commandLink id="edit" value="Edit" action="#{employee.editAction(c)}" rendered="#{not c.editable}"/>
+
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">Delete</f:facet>
+
+                <h:commandLink value="Delete"
+                               action="#{employee.deleteEmployee(c)}">
+                    <f:ajax execute="@form" render="@form" />
+                               </h:commandLink>
+
+            </h:column>
+            <h:column id="save" >
+                <h:commandButton value="Save Changes" action="#{employee.saveAction}" rendered="#{c.editable}">
+                    <f:ajax execute="@form" render="@form" />
+                </h:commandButton>
+            </h:column>
+
+        </h:dataTable>
+    </h:form>
+
+</h:body>
+
+</html>

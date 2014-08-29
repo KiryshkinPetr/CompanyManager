@@ -1,0 +1,40 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util
+http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+    <bean id="ListFirsNameLastName" class="com.codenvy.company.initialize.ListFirsNameLastName">
+        <property name="listFirstName">
+            <util:list list-class="java.util.ArrayList">
+                <value>Pernel</value>
+                <value>Davinia</value>
+                <value>Tamsin</value>
+                <value>Manuel</value>
+                <value>Corwin</value>
+                <value>Bert</value>
+                <value>Hector</value>
+                <value>Frankie</value>
+                <value>Erick</value>
+                <value>Dunstan</value>
+            </util:list>
+        </property>
+        <property name="listLastName">
+            <util:list list-class="java.util.ArrayList">
+                <value>Kilie</value>
+                <value>Jordan</value>
+                <value>Geraldine</value>
+                <value>Paden</value>
+                <value>Marion</value>
+                <value>Alexey</value>
+                <value>Lou</value>
+                <value>Willie</value>
+                <value>Gordon</value>
+                <value>Phoenix</value>
+            </util:list>
+        </property>
+    </bean>
+
+
+</beans>

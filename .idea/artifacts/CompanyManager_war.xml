@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="CompanyManager:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="JavaServerFaces.war">
+      <element id="artifact" artifact-name="CompanyManager:war exploded" />
+    </root>
+  </artifact>
+</component>
